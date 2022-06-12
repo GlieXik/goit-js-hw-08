@@ -18,7 +18,7 @@ const onInputTextArea = event => {
 };
 const formSubmit = event => {
   event.preventDefault();
-
+  console.log(formData);
   event.target.reset();
   localStorage.removeItem(STORAGE_KEY);
 };
