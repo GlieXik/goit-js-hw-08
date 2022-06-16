@@ -6,9 +6,9 @@ const refs = {
   message: document.querySelector("textarea[name='message']"),
   submit: document.querySelector('.feedback-form'),
 };
+populate();
 const onInputEmail = event => {
   formData[event.target.name] = event.target.value;
-
   localStorage.setItem(STORAGE_KEY, JSON.stringify(formData));
 };
 const onInputTextArea = event => {
@@ -21,8 +21,10 @@ const formSubmit = event => {
   console.log(formData);
   event.target.reset();
   localStorage.removeItem(STORAGE_KEY);
+  formData.email = '';
+  formData.message = '';
 };
-const populate = () => {
+function populate() {
   const savedData = JSON.parse(localStorage.getItem(STORAGE_KEY));
   if (savedData) {
     refs.email.value = savedData['email'];
@@ -30,8 +32,8 @@ const populate = () => {
     formData.email = savedData['email'];
     formData.message = savedData['message'];
   }
-};
-populate();
+}
+
 refs.email.addEventListener('input', throttle(onInputEmail, 500));
 refs.message.addEventListener('input', throttle(onInputTextArea, 500));
 refs.submit.addEventListener('submit', formSubmit);
